@@ -2,7 +2,6 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "dynamicArray.h"
-
 struct DynArr
 {
 	TYPE *data;		/* pointer to the data array */
@@ -93,20 +92,26 @@ void deleteDynArr(DynArr *v)
 void _dynArrSetCapacity(DynArr *v, int newCap)
 {	
 	/* FIXME: You will write this function */
-	if(v != NULL) {
-		struct DynArr* temp = v;
-		v = malloc(sizeof(DynArr) * newCap);
-		v->size = temp->size;
-		v->capacity = newCap;
-		int i;
-		for(i=0; i<v->size; i++) {
-			v->data[i] = temp->data[i];
-		}
-		deleteDynArray(v);
+	assert(v != NULL);
+
+	struct DynArr* temp = createDynArr(newCap);
+	int i;
+	//copy all the values from v to temp, since = overload is not implementd
+	temp->size = v->size;
+	for(i = 0; i < v->size; i++){
+		temp->data[i] = v->data[i];
 	}
 	
+	//reset v
+	freeDynArr(v);
+	v->data = malloc(sizeof(DynArr) * newCap);
+	v->size = temp->size;
+	v->capacity = newCap;
+	for(i=0; i < v->size; i++) {
+		v->data[i] = temp->data[i];
+	}
+	deleteDynArr(temp);
 }
-
 /* Get the size of the dynamic array
 
 	param: 	v		pointer to the dynamic array
@@ -164,7 +169,8 @@ TYPE getDynArr(DynArr *v, int pos)
 	/* FIXME: you must change this return value */
 			return v->data[pos];
 		}
-	} 
+	}
+   		
 }
 
 /*	Put an item into the dynamic array at the specified location,
