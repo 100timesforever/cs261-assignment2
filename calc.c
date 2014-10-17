@@ -20,7 +20,7 @@ int isNumber(char *s, double *num)
 		*num = 0;
 		return 1;
 	}
-	else 
+	else
 	{
 		returnNum = strtod(s, &end);
 		/* If there's anythin in end, it's bad */
@@ -35,17 +35,35 @@ int isNumber(char *s, double *num)
 
 /*	param: stack the stack being manipulated
 	pre: the stack contains at least two elements
-	post: the top two elements are popped and 
+	post: the top two elements are popped and
 	their sum is pushed back onto the stack.
 */
 void add (struct DynArr *stack)
 {
+	double *x;
+	double *y;
+	double z;
+	char *s1;
+	char *s2;
+
 	/* FIXME: You will write this function */
+	assert(sizeDynArr(stack) >= 2);
+	s1 = popDynArr(stack);
+	s2 = popDynArr(stack);
+	if(isNumber(s1, x)){
+		if(isNumber(s2, y)){
+			z = *x + *y;
+			pushDynArr(z);
+		}
+	}
+	else{
+		printf("There was an error when the calculator tried to do math. Please try again.")
+	}
 }
 
 /*	param: stack the stack being manipulated
 	pre: the stack contains at least two elements
-	post: the top two elements are popped and 
+	post: the top two elements are popped and
 	their difference is pushed back onto the stack.
 */
 void subtract(struct DynArr *stack)
@@ -55,7 +73,7 @@ void subtract(struct DynArr *stack)
 
 /*	param: stack the stack being manipulated
 	pre: the stack contains at least two elements
-	post: the top two elements are popped and 
+	post: the top two elements are popped and
 	their quotient is pushed back onto the stack.
 */
 void divide(struct DynArr *stack)
@@ -69,12 +87,13 @@ double calculate(int numInputTokens, char **inputString)
 	double result = 0.0;
 	char *s;
 	struct DynArr *stack;
+	double *putablenumber = NULL;
 
 	//set up the stack
 	stack = createDynArr(20);
 
 	// start at 1 to skip the name of the calculator calc
-	for(i=1;i < numInputTokens;i++) 
+	for(i=1;i < numInputTokens;i++)
 	{
 		s = inputString[i];
 
@@ -94,43 +113,66 @@ double calculate(int numInputTokens, char **inputString)
 		else if(strcmp(s, "x") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Multiplying\n");
+			multiply(stack);
 		else if(strcmp(s, "^") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Power\n");
+			power(stack);
 		else if(strcmp(s, "^2") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Squaring\n");
+			square(stack);
 		else if(strcmp(s, "^3") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Cubing\n");
+			cube(stack);
 		else if(strcmp(s, "abs") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Absolute value\n");
+			absolute(stack);
 		else if(strcmp(s, "sqrt") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Square root\n");
+			squareroot(stack);
 		else if(strcmp(s, "exp") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Exponential\n");
+			exponential(stack);
 		else if(strcmp(s, "ln") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Natural Log\n");
+			natLog(stack);
 		else if(strcmp(s, "log") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Log\n");
-		else 
+			normalLog(stack);
+		else
 		{
-			// FIXME: You need to develop the code here (when s is not an operator)
-			// Remember to deal with special values ("pi" and "e")
-			
-		}
-	}	//end for 
+			// These three deal with the possibility of a number
+			if(strcmp(s, "pi") == 0){
+				pushDynArr(stack, 3.14159265);
+			}
+			else if(strcmp(s, "e") == 0){
+				pushDynArr(stack, 2.7182818);
+			}
+			else if(isNumber(s, putablenumber) == 1){
+				pushDynArr(stack, *putablenumber);
+			}
+			else{
+				printf("You have entered a non-valid argument. This simply will not do.\n")
+				printf("The erroneous argument was: %s\n", s);
+				printf("Goodbye. (Returning 1 as a marker that the program failed)")
+				return 1;
+			}
 
-	/* FIXME: You will write this part of the function (2 steps below) 
+		}
+	}	//end for
+
+	/* FIXME: You will write this part of the function (2 steps below)
 	 * (1) Check if everything looks OK and produce an error if needed.
 	 * (2) Store the final value in result and print it out.
 	 */
-	
+
 	return result;
 }
 
