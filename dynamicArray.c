@@ -341,11 +341,18 @@ void popDynArr(DynArr *v)
 */
 int containsDynArr(DynArr *v, TYPE val)
 {
-	/* FIXME: You will write this function */
-	
-	/* FIXME:  You will change this return value */
-	return 1;
+	int i;
 
+	assert(v != NULL);
+	assert(v->size > 0);
+	
+	for(i = 0; i < v->size; i++){
+		if(v->data[i] == val){
+			return 1;
+		}
+	}
+	//in all other cases, where val is not in v
+	return 0;
 }
 
 /*	Removes the first occurrence of the specified value from the collection
@@ -360,5 +367,15 @@ int containsDynArr(DynArr *v, TYPE val)
 */
 void removeDynArr(DynArr *v, TYPE val)
 {
-	/* FIXME: You will write this function */
+	int i;
+
+	assert(v != NULL);
+	assert(v->size > 0);
+	
+	for(i = 0; i < v->size; i++){
+		if(v->data[i] == val){
+			removeAtDynArr(v, i);
+			return;
+		}
+	}
 }
