@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "dynamicArray.h"
+#include <assert.h>
 
 
 /* param: s the string
@@ -40,26 +41,24 @@ int isNumber(char *s, double *num)
 */
 void add (struct DynArr *stack)
 {
-	double *x;
-	double *y;
+	double x;
+	double y;
 	double z;
-	char *s1;
-	char *s2;
 
 	/* FIXME: You will write this function */
-	assert(sizeDynArr(stack) >= 2);
-	s1 = popDynArr(stack);
-	s2 = popDynArr(stack);
-	if(isNumber(s1, x)){
-		if(isNumber(s2, y)){
-			z = *x + *y;
-			pushDynArr(z);
-		}
+	//assert(sizeDynArr(stack) >= 2);
+	if(sizeDynArr(stack) <= 2){
+		printf("Not enough tokens on the stack to add.\n");
+		return;
 	}
-	else{
-		printf("There was an error when the calculator tried to do math. Please try again.")
-	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	y = topDynArr(stack);
+	popDynArr(stack);
+	z = x + y;
+	pushDynArr(stack, z);
 }
+
 
 /*	param: stack the stack being manipulated
 	pre: the stack contains at least two elements
@@ -68,8 +67,24 @@ void add (struct DynArr *stack)
 */
 void subtract(struct DynArr *stack)
 {
+	double x;
+	double y;
+	double z;
+
 	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2);
+	if(sizeDynArr(stack) <= 2){
+		printf("Not enough tokens on the stack to subtract.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	y = topDynArr(stack);
+	popDynArr(stack);
+	z = y - x;
+	pushDynArr(stack, z);
 }
+
 
 /*	param: stack the stack being manipulated
 	pre: the stack contains at least two elements
@@ -78,7 +93,22 @@ void subtract(struct DynArr *stack)
 */
 void divide(struct DynArr *stack)
 {
+	double x;
+	double y;
+	double z;
+
 	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2);
+	if(sizeDynArr(stack) <= 2){
+		printf("Not enough tokens on the stack to divide.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	y = topDynArr(stack);
+	popDynArr(stack);
+	z = x / y;
+	pushDynArr(stack, z);
 }
 
 double calculate(int numInputTokens, char **inputString)
@@ -87,7 +117,7 @@ double calculate(int numInputTokens, char **inputString)
 	double result = 0.0;
 	char *s;
 	struct DynArr *stack;
-	double *putablenumber = NULL;
+	double *putablenumber = malloc(sizeof(double));
 
 	//set up the stack
 	stack = createDynArr(20);
@@ -113,39 +143,39 @@ double calculate(int numInputTokens, char **inputString)
 		else if(strcmp(s, "x") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Multiplying\n");
-			multiply(stack);
+			//multiply(stack);
 		else if(strcmp(s, "^") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Power\n");
-			power(stack);
+			//power(stack);
 		else if(strcmp(s, "^2") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Squaring\n");
-			square(stack);
+			//square(stack);
 		else if(strcmp(s, "^3") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Cubing\n");
-			cube(stack);
+			//cube(stack);
 		else if(strcmp(s, "abs") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Absolute value\n");
-			absolute(stack);
+			//absolute(stack);
 		else if(strcmp(s, "sqrt") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Square root\n");
-			squareroot(stack);
+			//squareroot(stack);
 		else if(strcmp(s, "exp") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Exponential\n");
-			exponential(stack);
+			//exponential(stack);
 		else if(strcmp(s, "ln") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Natural Log\n");
-			natLog(stack);
+			//natLog(stack);
 		else if(strcmp(s, "log") == 0)
 			/* FIXME: replace printf with your own function */
 			printf("Log\n");
-			normalLog(stack);
+			//normalLog(stack);
 		else
 		{
 			// These three deal with the possibility of a number
@@ -159,9 +189,9 @@ double calculate(int numInputTokens, char **inputString)
 				pushDynArr(stack, *putablenumber);
 			}
 			else{
-				printf("You have entered a non-valid argument. This simply will not do.\n")
+				printf("You have entered a non-valid argument. This simply will not do.\n");
 				printf("The erroneous argument was: %s\n", s);
-				printf("Goodbye. (Returning 1 as a marker that the program failed)")
+				printf("Goodbye.");
 				return 1;
 			}
 
@@ -172,7 +202,20 @@ double calculate(int numInputTokens, char **inputString)
 	 * (1) Check if everything looks OK and produce an error if needed.
 	 * (2) Store the final value in result and print it out.
 	 */
-
+	if(sizeDynArr(stack) != 1){
+		printf("You did not put in a proper ratio of arguments.");
+		return 1;
+	}
+	/* Consider nixing this section
+	else if(isNumber(topDynArr(stack), putablenumber) == 0){
+		printf("You seriously messed up somehow. The stack value is not a number?");
+		return 1;
+	}
+	*/
+	else{
+		result = topDynArr(stack);
+	}
+	printf("Result: %f\n", result);
 	return result;
 }
 
