@@ -1,0 +1,14 @@
+Part 2: Amortized Analysis of the Dynamic Array
+
+1.
+When performing push 16 times on an empty array with initial capacity of 8, the total cost units spent are 24. The first 8 pushes costs 1 unit per push, adding up to 8. The next push requires the array to be resized, therefore the cost is X+1, where X is the size of the current array. This means that the cost of the 9th push is 9, causing the total cost thus far to be 17. Now the size of the array is 16, filled with 9 items, and we have 7 more pushes to do. The cost for the remaining pushes is 1 per, therefore the cost of those last pushes are 7, reaching the total cost for the operation of 24.
+When doing this with 32 pushes, the total cost is 56. We can go ahead and skip the first 16, because we did those above, and they added up to a cost of 24. We now have an array of length 16, and 16 pushes left to do. The 17th push is going to cost X+1 to resize the array, which means that its cost is 17, adding to a total cost so far of 41. We still have 15 more pushes to do, each with cost of 1, so the cost of those operations is 15, adding up to the grand total, the cost of 32 pushes is 56.
+With this method of memory allocation, the push function has O(1+).
+
+2.
+The total cost for 16 pushes on an initially empty array of size 8 when the array is being resized by adding 2 to its capacity is 60. The cost of the first 8 are 8. The cost of the next 8 require it to be resized 4 times. The first time has a cost of 9, the next of 11, the next of 13, and the last of 15. We then add 4 for each element added in between, and of the first 8, and we get 60.
+When pushing 32 times, we can once again ignore the first 16, since we just did that calculation and got 60. For the next 16, we will have to do 8 pushes where we need to resize. We also have 8 pushes where we don't need to resize. Therefore the cost for the last 16 is 17+19+21+23+25+27+29+31+8 = 200. Therefore the total cost is 260.
+With this method of memory allocation, the push function has O(N).
+
+3.
+The way to make the performance the poorest would be to make it resize as frequently as possible per push() or pop(). Since the starting size is N/2, we would start with pop(), then N/2+1 pushes, then N/2+1 pops, then repeat. You could adjust the array's shrinking policy to make it cost less by decreasing the capacity to N/2 only when size = N/4.
