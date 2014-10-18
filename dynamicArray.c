@@ -170,7 +170,6 @@ TYPE getDynArr(DynArr *v, int pos)
 			return v->data[pos];
 		}
 	}
-   		
 }
 
 /*	Put an item into the dynamic array at the specified location,
