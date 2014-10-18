@@ -103,6 +103,10 @@ void divide(struct DynArr *stack)
 		printf("Not enough tokens on the stack to divide.\n");
 		return;
 	}
+	if(y == 0) {
+		printf("Cannot divide by 0.\n");
+		return;
+	}
 	x = topDynArr(stack);
 	popDynArr(stack);
 	y = topDynArr(stack);
