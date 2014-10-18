@@ -47,7 +47,7 @@ void add (struct DynArr *stack)
 
 	/* FIXME: You will write this function */
 	//assert(sizeDynArr(stack) >= 2);
-	if(sizeDynArr(stack) <= 2){
+	if(sizeDynArr(stack) < 2){
 		printf("Not enough tokens on the stack to add.\n");
 		return;
 	}
@@ -73,7 +73,7 @@ void subtract(struct DynArr *stack)
 
 	/* FIXME: You will write this function */
 	//assert(sizeDynArr(stack) >= 2);
-	if(sizeDynArr(stack) <= 2){
+	if(sizeDynArr(stack) < 2){
 		printf("Not enough tokens on the stack to subtract.\n");
 		return;
 	}
@@ -99,15 +99,223 @@ void divide(struct DynArr *stack)
 
 	/* FIXME: You will write this function */
 	//assert(sizeDynArr(stack) >= 2);
-	if(sizeDynArr(stack) <= 2){
+	if(sizeDynArr(stack) < 2){
 		printf("Not enough tokens on the stack to divide.\n");
+		return;
+	}
+	if(topDynArr(stack) == 0) {
+		printf("Cannot divide by 0.\n");
 		return;
 	}
 	x = topDynArr(stack);
 	popDynArr(stack);
 	y = topDynArr(stack);
 	popDynArr(stack);
-	z = x / y;
+	z = y / x;
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void multiply(struct DynArr *stack)
+{
+	double x;
+	double y;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 2){
+		printf("Not enough tokens on the stack to multiply.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	y = topDynArr(stack);
+	popDynArr(stack);
+	z = x*y;
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void power(struct DynArr *stack)
+{
+	double x;
+	double y;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 2){
+		printf("Not enough tokens on the stack to power.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	y = topDynArr(stack);
+	popDynArr(stack);
+	z = pow(y, x);
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void square(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to square.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = x*x;
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void cube(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to cube.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = x*x*x;
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void absolute(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to abs.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = fabs(x);
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void squareroot(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to squareroot.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = sqrt(x);
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void exponential(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to exponential.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = exp(x);
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void natLog(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to natLog.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = log(x);
+	pushDynArr(stack, z);
+}
+
+/*	param: stack the stack being manipulated
+	pre: the stack contains at least two elements
+	post: the top two elements are popped and
+	their quotient is pushed back onto the stack.
+*/
+void normalLog(struct DynArr *stack)
+{
+	double x;
+	double z;
+
+	/* FIXME: You will write this function */
+	//assert(sizeDynArr(stack) >= 2;
+	if(sizeDynArr(stack) < 1){
+		printf("Not enough tokens on the stack to Log.\n");
+		return;
+	}
+	x = topDynArr(stack);
+	popDynArr(stack);
+	z = log10(x);
 	pushDynArr(stack, z);
 }
 
@@ -141,41 +349,23 @@ double calculate(int numInputTokens, char **inputString)
 		else if(strcmp(s, "/") == 0)
 			divide(stack);
 		else if(strcmp(s, "x") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Multiplying\n");
-			//multiply(stack);
+			multiply(stack);
 		else if(strcmp(s, "^") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Power\n");
-			//power(stack);
+			power(stack);
 		else if(strcmp(s, "^2") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Squaring\n");
-			//square(stack);
+			square(stack);
 		else if(strcmp(s, "^3") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Cubing\n");
-			//cube(stack);
+			cube(stack);
 		else if(strcmp(s, "abs") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Absolute value\n");
-			//absolute(stack);
+			absolute(stack);
 		else if(strcmp(s, "sqrt") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Square root\n");
-			//squareroot(stack);
+			squareroot(stack);
 		else if(strcmp(s, "exp") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Exponential\n");
-			//exponential(stack);
+			exponential(stack);
 		else if(strcmp(s, "ln") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Natural Log\n");
-			//natLog(stack);
+			natLog(stack);
 		else if(strcmp(s, "log") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Log\n");
-			//normalLog(stack);
+			normalLog(stack);
 		else
 		{
 			// These three deal with the possibility of a number
@@ -191,7 +381,7 @@ double calculate(int numInputTokens, char **inputString)
 			else{
 				printf("You have entered a non-valid argument. This simply will not do.\n");
 				printf("The erroneous argument was: %s\n", s);
-				printf("Goodbye.");
+				printf("Goodbye.\n");
 				return 1;
 			}
 
@@ -203,7 +393,7 @@ double calculate(int numInputTokens, char **inputString)
 	 * (2) Store the final value in result and print it out.
 	 */
 	if(sizeDynArr(stack) != 1){
-		printf("You did not put in a proper ratio of arguments.");
+		printf("You did not put in a proper ratio of arguments.\n");
 		return 1;
 	}
 	/* Consider nixing this section
